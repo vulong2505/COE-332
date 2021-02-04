@@ -1,0 +1,144 @@
+{
+  "animals": [
+    {
+      "head": "bull",
+      "body": "fawn-drake",
+      "arms": 4,
+      "legs": 6,
+      "tails": 10
+    },
+    {
+      "head": "bunny",
+      "body": "goose-kiwi",
+      "arms": 6,
+      "legs": 9,
+      "tails": 15
+    },
+    {
+      "head": "bull",
+      "body": "cowbird-snapper",
+      "arms": 4,
+      "legs": 3,
+      "tails": 7
+    },
+    {
+      "head": "bunny",
+      "body": "shrew-bull",
+      "arms": 2,
+      "legs": 6,
+      "tails": 8
+    },
+    {
+      "head": "snake",
+      "body": "filly-macaque",
+      "arms": 4,
+      "legs": 6,
+      "tails": 10
+    },
+    {
+      "head": "bull",
+      "body": "ladybird-snail",
+      "arms": 8,
+      "legs": 6,
+      "tails": 14
+    },
+    {
+      "head": "bunny",
+      "body": "hen-filly",
+      "arms": 2,
+      "legs": 3,
+      "tails": 5
+    },
+    {
+      "head": "bunny",
+      "body": "moth-goshawk",
+      "arms": 8,
+      "legs": 6,
+      "tails": 14
+    },
+    {
+      "head": "bunny",
+      "body": "dove-mouse",
+      "arms": 6,
+      "legs": 6,
+      "tails": 12
+    },
+    {
+      "head": "bull",
+      "body": "quail-worm",
+      "arms": 2,
+      "legs": 3,
+      "tails": 5
+    },
+    {
+      "head": "snake",
+      "body": "elephant-bedbug",
+      "arms": 8,
+      "legs": 6,
+      "tails": 14
+    },
+    {
+      "head": "raven",
+      "body": "grub-coyote",
+      "arms": 4,
+      "legs": 9,
+      "tails": 13
+    },
+    {
+      "head": "bull",
+      "body": "teal-muskrat",
+      "arms": 4,
+      "legs": 3,
+      "tails": 7
+    },
+    {
+      "head": "raven",
+      "body": "drum-parakeet",
+      "arms": 8,
+      "legs": 9,
+      "tails": 17
+    },
+    {
+      "head": "raven",
+      "body": "dog-whippet",
+      "arms": 8,
+      "legs": 6,
+      "tails": 14
+    },
+    {
+      "head": "lion",
+      "body": "skunk-seal",
+      "arms": 6,
+      "legs": 6,
+      "tails": 12
+    },
+    {
+      "head": "bunny",
+      "body": "drum-cricket",
+      "arms": 6,
+      "legs": 6,
+      "tails": 12
+    },
+    {
+      "head": "lion",
+      "body": "woodcock-goose",
+      "arms": 2,
+      "legs": 6,
+      "tails": 8
+    },
+    {
+      "head": "raven",
+      "body": "dodo-dragon",
+      "arms": 8,
+      "legs": 9,
+      "tails": 17
+    },
+    {
+      "head": "bunny",
+      "body": "redfish-duck",
+      "arms": 6,
+      "legs": 3,
+      "tails": 9
+    }
+  ]
+}
