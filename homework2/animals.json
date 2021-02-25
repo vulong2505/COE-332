@@ -1,0 +1,144 @@
+{
+  "animals": [
+    {
+      "head": "raven",
+      "body": "louse-turtle",
+      "arms": 2,
+      "legs": 6,
+      "tails": 8
+    },
+    {
+      "head": "bunny",
+      "body": "collie-gorilla",
+      "arms": 4,
+      "legs": 3,
+      "tails": 7
+    },
+    {
+      "head": "bull",
+      "body": "eft-kangaroo",
+      "arms": 8,
+      "legs": 3,
+      "tails": 11
+    },
+    {
+      "head": "raven",
+      "body": "stud-pug",
+      "arms": 4,
+      "legs": 3,
+      "tails": 7
+    },
+    {
+      "head": "bull",
+      "body": "elephant-werewolf",
+      "arms": 6,
+      "legs": 3,
+      "tails": 9
+    },
+    {
+      "head": "snake",
+      "body": "dingo-bluejay",
+      "arms": 4,
+      "legs": 6,
+      "tails": 10
+    },
+    {
+      "head": "bull",
+      "body": "bluejay-ape",
+      "arms": 4,
+      "legs": 6,
+      "tails": 10
+    },
+    {
+      "head": "bull",
+      "body": "buck-collie",
+      "arms": 2,
+      "legs": 9,
+      "tails": 11
+    },
+    {
+      "head": "raven",
+      "body": "fly-goblin",
+      "arms": 8,
+      "legs": 3,
+      "tails": 11
+    },
+    {
+      "head": "lion",
+      "body": "tick-blowfish",
+      "arms": 4,
+      "legs": 3,
+      "tails": 7
+    },
+    {
+      "head": "bull",
+      "body": "silkworm-mongoose",
+      "arms": 8,
+      "legs": 3,
+      "tails": 11
+    },
+    {
+      "head": "bull",
+      "body": "panther-ocelot",
+      "arms": 2,
+      "legs": 9,
+      "tails": 11
+    },
+    {
+      "head": "lion",
+      "body": "ocelot-cricket",
+      "arms": 8,
+      "legs": 6,
+      "tails": 14
+    },
+    {
+      "head": "bunny",
+      "body": "hagfish-ape",
+      "arms": 4,
+      "legs": 3,
+      "tails": 7
+    },
+    {
+      "head": "bull",
+      "body": "mammal-unicorn",
+      "arms": 6,
+      "legs": 9,
+      "tails": 15
+    },
+    {
+      "head": "raven",
+      "body": "possum-shrew",
+      "arms": 2,
+      "legs": 3,
+      "tails": 5
+    },
+    {
+      "head": "bunny",
+      "body": "coyote-wasp",
+      "arms": 4,
+      "legs": 3,
+      "tails": 7
+    },
+    {
+      "head": "bunny",
+      "body": "wren-midge",
+      "arms": 4,
+      "legs": 6,
+      "tails": 10
+    },
+    {
+      "head": "lion",
+      "body": "snake-oryx",
+      "arms": 6,
+      "legs": 3,
+      "tails": 9
+    },
+    {
+      "head": "bull",
+      "body": "weasel-husky",
+      "arms": 2,
+      "legs": 3,
+      "tails": 5
+    }
+  ]
+}
