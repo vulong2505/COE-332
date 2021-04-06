@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+      web:
+        build: .
+        container_name: vulong25_app
+        ports:
+           - 5035:5000
+        volumes:
+           - ./data/data_file.json:/data_file.json
+      redis:
+        image: redis:latest
+        ports:
+            - 6415:6379
+        volumes:
+            - ./config/redis.conf:/redis.conf
+        command: [ "redis-server", "/redis.conf" ]
