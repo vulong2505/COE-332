@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: vulong25-hello-b
+  labels:
+    greeting: personalized
+spec:
+  containers:
+    - name: vulong25-hello-b
+      image: ubuntu:18.04
+      env:
+        - name: NAME
+          value: Long
+      command: ['sh', '-c', 'echo "Hello, $(NAME)" && sleep 3600']
+
