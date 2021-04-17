@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vulong25-test-redis-deployment
+  labels:
+    app: test-redis-deployment
+    username: vulong25
+    env: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vulong25-test-redis
+  template:
+    metadata:
+      labels:
+        app: vulong25-test-redis
+        username: vulong25
+        env: test
+    spec:
+      containers:
+        - name: test-redis
+          image: redis:5.0.0
+          volumeMounts:
+            - name: vulong25-test-redis-data
+              mountPath: "/data"
+      volumes:
+        - name: vulong25-test-redis-data
+          persistentVolumeClaim:
+            claimName: vulong25-test-redis-data

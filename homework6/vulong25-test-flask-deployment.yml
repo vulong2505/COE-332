@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vulong25-test-flask-deployment
+  labels:
+    app: test-flask-deployment
+    username: vulong25
+    env: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vulong25-test-flask
+  template:
+    metadata:
+      labels:
+        app: vulong25-test-flask
+        username: vulong25
+        env: test
+    spec:
+      containers:
+        - name: vulong25-test-flask
+          imagePullPolicy: Always
+          image: vulong2505/homework6_app:hardcode
+          env:
+            - name: FLASK_APP
+              value: "app.py"
+          ports:
+            - name: http
+              containerPort: 5000

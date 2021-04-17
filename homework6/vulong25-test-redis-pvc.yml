@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: vulong25-test-redis-data
+  labels:
+    app: test-redis-data
+    username: vulong25
+    env: test
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: rbd
+  resources:
+    requests:
+      storage: 1Gi
