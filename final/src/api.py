@@ -26,9 +26,10 @@ def get_data():
     data = json.loads(rd_raw.get('Housing Data'))
     return data
 
+
 @app.route('/data/load', methods=['GET'])
 def load_data():
-    rd_raw.flushall()   # Deletes all data on the redis db to start on clean slate.
+    rd_raw.flushall()  # Deletes all data on the redis db to start on clean slate.
 
     with open("Austin_Affordable_Housing.json", "r") as f:
         housing_data = json.load(f)
@@ -44,7 +45,6 @@ def load_data():
 # curl -X POST -d '{"parameter": "Zip Code", "start": 78000, "end": 79000}' localhost:5035/run
 @app.route('/run', methods=['GET', 'POST'])
 def run_job():
-
     if request.method == 'POST':
         try:
             job = request.get_json(force=True)
@@ -70,7 +70,6 @@ def run_job():
 # List past jobs and its status
 @app.route('/jobs', methods=['GET'])
 def get_jobs():
-
     redis_dict = {}
 
     for key in rd_jobs.keys():
@@ -85,7 +84,6 @@ def get_jobs():
 # Download an image from a job
 @app.route('/download/<jid>', methods=['GET'])
 def download(jid):
-
     path = f'/app/{jid}.png'
 
     with open(path, 'wb') as f:
@@ -97,7 +95,7 @@ def download(jid):
 # CRUD Operations ======================================================================================================
 
 # CREATE - Add a new property
-@app.route('/data/add_house', method['POST'])
+@app.route('/data/add_house', methods=['POST'])
 def add_house():
     housing_data = get_data()
 
@@ -114,10 +112,11 @@ def add_house():
     new_manager_email = new_house['Property Manager Email']
 
     housing_data['Housing Data'].append({"Project ID": new_project_id, "Address": new_address, "Zip Code": new_zip,
-                                        "Unit Type": new_unit_type, "Tenure": new_tenure, "City Amount": new_city_amount, \
-                                        "Longitude": new_longitude, "Latitude": new_latitude, \
-                                        "Property Manager Phone Number": new_manager_number, \
-                                        "Property Manager Email": new_manager_email})
+                                         "Unit Type": new_unit_type, "Tenure": new_tenure,
+                                         "City Amount": new_city_amount, \
+                                         "Longitude": new_longitude, "Latitude": new_latitude, \
+                                         "Property Manager Phone Number": new_manager_number, \
+                                         "Property Manager Email": new_manager_email})
 
     rd_raw.set('Housing Data', json.dumps(housing_data, indent=2))
 
@@ -135,7 +134,7 @@ def get_house(Project_ID):
 
 
 # UPDATE: Update house info
-@app.route('/data/update/<Project_ID>', method=['PUT'])
+@app.route('/data/update/<Project_ID>', methods=['PUT'])
 def update_house(Project_ID):
     housing_data = get_data()
 
@@ -169,7 +168,7 @@ def update_house(Project_ID):
 
 
 # DELETE - Delete house info
-@app.route('/data/delete/<Project_ID>', method=['GET', 'DELETE'])
+@app.route('/data/delete/<Project_ID>', methods=['GET', 'DELETE'])
 def delete_house(Project_ID):
     housing_data = get_data()
 
