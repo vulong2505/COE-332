@@ -3,7 +3,7 @@ import jobs
 import datetime
 import redis
 
-from flask import Flask, request, send_file, jsonify
+from flask import Flask, request, send_file
 from jobs import q, rd_jobs, rd_raw, rd_images
 
 app = Flask(__name__)
@@ -30,9 +30,10 @@ def get_data():
 def delete_database():
     rd_raw.flushall()
 
+
 @app.route('/data/load', methods=['GET'])
 def load_data():
-    delete_database() # Deletes all data on the redis db to start on clean slate.
+    delete_database()  # Deletes all data on the redis db to start on clean slate.
 
     with open("Austin_Affordable_Housing.json", "r") as f:
         housing_data = json.load(f)
@@ -98,33 +99,43 @@ def download(jid):
 # CRUD Operations ======================================================================================================
 
 # CREATE - Add a new property
-# curl localhost:5035/data/add_house -X POST -H "Content-Type: application/json" -d '{"Address": "5812 Berkman Dr","Zip Code": 78723, "Unit Type": "Single Family", "Tenure": "", "City Amount": 0, "Longitude": -97.692, "Latitude": 30.292107, "Property Manager Phone Number": "", "Property Manager Email": ""}'
+# curl localhost:5035/data/add_house -X POST -H "Content-Type: application/json" -d '{"Address": "5812 Berkman Dr","Zip Code": "78723", "Unit Type": "", "Tenure": "", "City Amount": "46000", "Longitude": "-97.69232", "Latitude": "30.292107", "Property Manager Phone Number": "", "Property Manager Email": ""}'
 @app.route('/data/add_house', methods=['POST'])
 def add_house():
     housing_data = get_data()
 
     new_house = request.get_json(force=True)
-    new_project_id = len(housing_data) + 3731
+    new_project_id = str(project_id_count())
     new_address = new_house['Address']
-    new_zip = float(new_house['Zip Code'])
+    new_zip = new_house['Zip Code']
     new_unit_type = new_house['Unit Type']
     new_tenure = new_house['Tenure']
-    new_city_amount = float(new_house['City Amount'])
-    new_longitude = float(new_house['Longitude'])
-    new_latitude = float(new_house['Latitude'])
+    new_city_amount = new_house['City Amount']
+    new_longitude = new_house['Longitude']
+    new_latitude = new_house['Latitude']
     new_manager_number = new_house['Property Manager Phone Number']
     new_manager_email = new_house['Property Manager Email']
 
     housing_data.append({"Project ID": new_project_id, "Address": new_address, "Zip Code": new_zip,
-                                         "Unit Type": new_unit_type, "Tenure": new_tenure,
-                                         "City Amount": new_city_amount, \
-                                         "Longitude": new_longitude, "Latitude": new_latitude, \
-                                         "Property Manager Phone Number": new_manager_number, \
-                                         "Property Manager Email": new_manager_email})
+                         "Unit Type": new_unit_type, "Tenure": new_tenure,
+                         "City Amount": new_city_amount, \
+                         "Longitude": new_longitude, "Latitude": new_latitude, \
+                         "Property Manager Phone Number": new_manager_number, \
+                         "Property Manager Email": new_manager_email})
 
     rd_raw.set('Housing Data', json.dumps(housing_data, indent=2))
 
     return "New property has been added. \n"
+
+
+count = 0
+
+
+# Jank hardcode w/ global var to keep the original .csv project ID format
+def project_id_count():
+    global count
+    count += 1
+    return 5805 + count
 
 
 # READ - Print out property data of specific house using project ID
@@ -132,41 +143,40 @@ def add_house():
 def get_house(Project_ID):
     housing_data = get_data()
 
-    return json.dumps(housing_data)
-    # return json.dumps([x for x in housing_data if x['Project ID'] == Project_ID])
+    selected_house = [x for x in housing_data if x['Project ID'] == Project_ID]
+
+    if len(selected_house) == 0:
+        return "House #" + Project_ID + " does not exist. \n"
+
+    return json.dumps([x for x in housing_data if x['Project ID'] == Project_ID]) + "\n"
+
 
 # UPDATE: Update house info
-@app.route('/data/update/<Project_ID>', methods=['PUT'])
-def update_house(Project_ID):
+# curl -X POST -d '{"id": "5805", "parameter": "Zip Code", "edit": "77777"}' localhost:5035/data/update
+# curl -X POST -d '{"id": "5805", "parameter": "City Amount", "edit": "120030"}' localhost:5035/data/update
+@app.route('/data/update', methods=['POST'])
+def update_house():
     housing_data = get_data()
 
-    new_house = request.get_json(force=True)
-    new_project_id = len(housing_data) + 3731
-    new_address = new_house['Address']
-    new_zip = float(new_house['Zip Code'])
-    new_unit_type = new_house['Unit Type']
-    new_tenure = new_house['Tenure']
-    new_city_amount = float(new_house['City Amount'])
-    new_longitude = float(new_house['Longitude'])
-    new_latitude = float(new_house['Latitude'])
-    new_manager_number = new_house['Property Manager Phone Number']
-    new_manager_email = new_house['Property Manager Email']
+    update_request = request.get_json(force=True)
 
-    list = [x for (x, i) in enumerate(housing_data) if i['Project ID'] == Project_ID]
+    project_id = update_request["id"]
+    parameter = update_request["parameter"]
+    edit = update_request["edit"]
 
-    housing_data[list[0]]['Address'] = new_address
-    housing_data[list[0]]['Zip Code'] = new_zip
-    housing_data[list[0]]['Unit Type'] = new_unit_type
-    housing_data[list[0]]['Tenure'] = new_tenure
-    housing_data[list[0]]['City Amount'] = new_city_amount
-    housing_data[list[0]]['Longitude'] = new_longitude
-    housing_data[list[0]]['Latitude'] = new_latitude
-    housing_data[list[0]]['Property Manager Phone Number'] = new_manager_number
-    housing_data[list[0]]['Property Manager Email'] = new_manager_email
+    selected_house = [x for x in housing_data if x['Project ID'] == project_id]
 
+    if len(selected_house) == 0:
+        return "House #" + project_id + " does not exist. \n"
+
+    index = housing_data.index(selected_house[0])
+
+    housing_data[index][parameter] = edit
+
+    delete_database()  # not a really pretty way of doing this
     rd_raw.set('Housing Data', json.dumps(housing_data, indent=2))
 
-    return "Property has been updated. \n"
+    return "Property " + project_id + " has been updated. \n"
 
 
 # DELETE - Delete house info
@@ -174,8 +184,15 @@ def update_house(Project_ID):
 def delete_house(Project_ID):
     housing_data = get_data()
 
-    house_to_delete = [x for x in housing_data if x['Project ID'] == Project_ID]
-    rd_raw.delete(housing_data.index(house_to_delete[0]))
+    selected_house = [x for x in housing_data if x['Project ID'] == Project_ID]
+
+    if len(selected_house) == 0:
+        return "House #" + Project_ID + " does not exist. \n"
+
+    housing_data.remove(selected_house[0])
+
+    delete_database()  # not a really pretty way of doing this
+    rd_raw.set('Housing Data', json.dumps(housing_data, indent=2))
 
     return "Property has been deleted. \n"
 
