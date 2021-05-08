@@ -113,11 +113,11 @@ def add_house():
     new_manager_number = new_house['Property Manager Phone Number']
     new_manager_email = new_house['Property Manager Email']
 
-    housing_data['Housing Data'].append{"Project ID": new_project_id, "Address": new_address, "Zip Code": new_zip,
+    housing_data['Housing Data'].append({"Project ID": new_project_id, "Address": new_address, "Zip Code": new_zip,
                                         "Unit Type": new_unit_type, "Tenure": new_tenure, "City Amount": new_city_amount, \
                                         "Longitude": new_longitude, "Latitude": new_latitude, \
                                         "Property Manager Phone Number": new_manager_number, \
-                                        "Property Manager Email": new_manager_email}
+                                        "Property Manager Email": new_manager_email})
 
     rd_raw.set('Housing Data', json.dumps(housing_data, indent=2))
 
