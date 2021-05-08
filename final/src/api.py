@@ -43,10 +43,18 @@ def load_data():
     return "Housing data has been loaded. \n"
 
 
+@app.route('/data/reset_jobs', methods=['GET'])
+def delete_jobs_database():
+    rd_jobs.flushall()
+
+    return "Jobs database has been cleared. \n"
+
+
 # Job Operations =======================================================================================================
 
 # Run a new job based on parameters such as City Amount from $20000 to $150000
 # curl -X POST -d '{"parameter": "Zip Code", "start": 78000, "end": 79000}' localhost:5035/run
+# curl -X POST -d '{"parameter": "Zip Code", "start": 78000, "end": 79000}' <api_ip>:5000/run
 @app.route('/run', methods=['GET', 'POST'])
 def run_job():
     if request.method == 'POST':
