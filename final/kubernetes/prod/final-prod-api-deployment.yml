@@ -2,31 +2,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: vulong25-test-api-deployment
+  name: vulong25-prod-api-deployment
   labels:
     username: vulong25
-    env: test
+    env: prod
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: vulong25-test-api
+      app: vulong25-prod-api
   template:
     metadata:
       labels:
-        app: vulong25-test-api
+        app: vulong25-prod-api
         username: vulong25
-        env: test
+        env: prod
     spec:
       containers:
-        - name: vulong25-test-api
+        - name: vulong25-prod-api
           image: vulong2505/final-api:latest
           imagePullPolicy: Always
           command: ["python3"]
           args: ["api.py"]
           env:
             - name: REDIS_IP
-              value: "10.244.3.60"
+              value: "10.244.5.147"
             - name: WORKER_IP
               valueFrom:
                 fieldRef:

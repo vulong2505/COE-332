@@ -2,35 +2,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: vulong25-test-api-deployment
+  name: vulong25-prod-wrk-deployment
   labels:
     username: vulong25
-    env: test
+    env: prod
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: vulong25-test-api
+      app: vulong25-prod-wrk
   template:
     metadata:
       labels:
-        app: vulong25-test-api
+        app: vulong25-prod-wrk
         username: vulong25
-        env: test
+        env: prod
     spec:
       containers:
-        - name: vulong25-test-api
-          image: vulong2505/final-api:latest
+        - name: vulong25-prod-wrk
+          image: vulong2505/final-wrk:latest
           imagePullPolicy: Always
           command: ["python3"]
-          args: ["api.py"]
+          args: ["worker.py"]
           env:
             - name: REDIS_IP
-              value: "10.244.3.60"
+              value: "10.244.5.147"
             - name: WORKER_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.podIP
-          ports:
-            - containerPort: 5000
 ...
