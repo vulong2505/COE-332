@@ -131,18 +131,9 @@ def add_house():
 @app.route('/data/get/<Project_ID>', methods=['GET'])
 def get_house(Project_ID):
     housing_data = get_data()
-    output = []
 
-    for a in housing_data:
-        currID = a['Project ID']
-
-        if currID == Project_ID:
-            output = a
-
-    # output = [x for x in json_list if x['Project ID'] == Project_ID]
-
-    return jsonify(output)
-
+    return json.dumps(housing_data)
+    # return json.dumps([x for x in housing_data if x['Project ID'] == Project_ID])
 
 # UPDATE: Update house info
 @app.route('/data/update/<Project_ID>', methods=['PUT'])
@@ -183,20 +174,10 @@ def update_house(Project_ID):
 def delete_house(Project_ID):
     housing_data = get_data()
 
-    for a in housing_data:
-        currID = a['Project ID']
+    house_to_delete = [x for x in housing_data if x['Project ID'] == Project_ID]
+    rd_raw.delete(housing_data.index(house_to_delete[0]))
 
-        if currID == Project_ID:
-            print(a)
-            housing_data.remove(a)
-
-    # list = [x for (x, i) in enumerate(housing_data) if i['Project ID'] == Project_ID]
-    # housing_data.pop(list[0])
-
-    delete_database()
-    rd_raw.set('Housing Data', json.dumps(housing_data, indent=2))
-
-    return "Property has been deleted"
+    return "Property has been deleted. \n"
 
 
 # Main =================================================================================================================
